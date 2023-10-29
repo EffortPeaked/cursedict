@@ -1,24 +1,34 @@
-import qrcode 
-import os 
-import subprocess 
-import requests 
-import webbrowser
-import qrcode
-import PIL 
+const cursor = document.querySelector(".cursor");
+const wind = document.querySelector(".wind");
+const banner = document.querySelector(".pointer_lock_banner");
 
-#Define QRCode
-qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
+let windOffsetX = 0;
+let cursorX = 0;
+let cursorY = 0;
+let isCursorLocked = false;
 
-#Input QRCodeData 
-img = qr.add_data("http://malicioussite.com/")
-#Specify Image Data Type
-type = (img)
-#Creates a Image from the QRData
-img = qr.make_image(fill_color="black", back_color="white")
-#Save Image File
-img.save("QRAttack.jpg")
+// Function to move the cursor to a specific X and Y position
+const moveCursor = (x, y) => {
+  cursorX = x;
+  cursorY = y;
+  cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+};
+
+// Function to simulate a click at a specific X and Y position
+const clickAt = (x, y) => {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+    clientX: x,
+    clientY: y
+  });
+  document.elementFromPoint(x, y).dispatchEvent(event);
+};
+
+// Move the cursor to X=300 and Y=200 and perform a click
+moveCursor(300, 200);
+clickAt(300, 200);
+
+// Rest of your existing code...
+// ... (your event listeners, animation frames, etc.)
